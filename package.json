@@ -2,7 +2,7 @@
   "name": "lab-11",
   "version": "1.0.0",
   "description": "lab-11",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -11,7 +11,9 @@
   "dependencies": {
     "cors": "^2.8.4",
     "dotenv": "^6.1.0",
+    "ejs": "^2.6.1",
     "express": "^4.16.4",
+    "pg": "^7.6.0",
     "superagent": "^4.0.0-beta.5"
   }
 }
