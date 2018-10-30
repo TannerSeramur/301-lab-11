@@ -26,30 +26,62 @@ app.use(express.static('./public'))
 app.use(express.urlencoded({extended:true}))
 
 
-//
+
 app.get('/',(req, res) =>{
   res.render('./pages/index');
 });
 
-// books constructer function
-
 app.post('/searches', getBooks);
 
+app.get('/error', handleError );
 
-function Books(data){
+////////////////////////////////////////////////////////////////////////////////////////////
+
+
+// error handler
+function handleError (err,res) {
+  console.error(err);
+
+  app.get('/error', () =>{
+    res.render('./pages/error.ejs');
+  });
+}
+
+
+////////////////////////////////////////////////////////////////////////////////////////////
+
+
+// books constructer function
+function Book(data){
   let noData = 'No Data Found';
-  this.title = (data ? data.title : noData );
-  this.author = (data ? data.author : noData );
-  this.description = (data ? data.description : noData );
-  this.image = (data ? data.image : noData );
+  this.title = (data.title ? data.title : noData );
+  this.author = (data.authors ? data.authors[0] : noData ); // only grabbing the first author 
+  this.description = (data.description ? data.description : noData );
+  this.image = (data.imageLinks.thumbnail ? data.imageLinks.thumbnail : noData );
 }
 
 function getBooks(req, res){
-  console.log('This is our req: ', req.body);
-  // const _URL = `https://www.googleapis.com/books/v1/volumes?q=${req.title}`;
-  // return superagent.get(URL)
+  // console.log('This is our req: ', req.body);
 
+  // if(req.body.title){
+  //   const search = `intitle+${req.body.title}`
+  // }
 
+  const search = (req.body.title ? `intitle+${req.body.title}` : `inauthor+${req.body.author}`)
 
+  console.log('this is our req.body.author', search);
+
+  const URL = `https://www.googleapis.com/books/v1/volumes?q=${search}`;
+  return superagent.get(URL)
+    .then(results => {
+      const bookArr = [];
+      results.body.items.forEach(book => {
+        bookArr.push(new Book(book.volumeInfo));
+      });
+      res.render('./pages/searches/show.ejs', {bookItems:bookArr});
+    })
+    .catch(error => handleError(error));
 }
+
+
 
