@@ -23,6 +23,7 @@ app.use(cors());
 app.listen(PORT, ()=>{console.log(`app is running on ${PORT}`)});
 
 app.use(express.static('./public'))
+app.use(express.urlencoded({extended:true}))
 
 
 //
@@ -44,10 +45,11 @@ function Books(data){
 }
 
 function getBooks(req, res){
-  URL = '';
-  return superagent.get(URL)
+  console.log('This is our req: ', req.body);
+  // const _URL = `https://www.googleapis.com/books/v1/volumes?q=${req.title}`;
+  // return superagent.get(URL)
 
 
 
-};
+}
 
