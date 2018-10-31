@@ -2,25 +2,29 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="Darrin and Tanner" content="book_app">
+    <meta name="The Book Store" content="book_app">
     <link rel="stylesheet" href="styles/reset.css">
     <link rel="stylesheet" href="styles/base.css">
     <title>Book app</title>
 </head>
 <body>
-    <header>
-        <h1>The Book Store</h1>
-    </header>
     <main>
-        <form action="/searches" method="POST">
-            <label for="title">Title</label>
-            <input type="text" name='title' id="title">
-
-            <label for="author">Author</label>
-            <input type="text" name="author" id="author">
-
-            <input type="submit" value="Search" id="searchBtn">  
-        </form>
+        <div id="form-container">
+            <form action="/searches" method="POST">
+                <h2>Search a Book</h2>
+                <div id="search-container">
+                    <div id="title">
+                        <input type="text" name='title' class="title" placeholder="search by title">
+                    </div>
+                    <div id="author">
+                        <input type="text" name="author" class="author" placeholder="search by author">
+                    </div>
+                    <div id="btn">
+                        <input type="submit" value="find now!" id="searchBtn"> 
+                    </div>
+                </div> 
+            </form>
+        </div>
         
     </main>
     <footer></footer>

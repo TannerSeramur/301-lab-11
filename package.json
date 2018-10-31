@@ -4,10 +4,19 @@
   "description": "lab-11",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
-  "author": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TannerSeramur/301-lab-11.git"
+  },
+  "author": "Tanner & Darrin",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TannerSeramur/301-lab-11/issues"
+  },
+  "homepage": "https://github.com/TannerSeramur/301-lab-11#readme",
   "dependencies": {
     "cors": "^2.8.4",
     "dotenv": "^6.1.0",

@@ -3,22 +3,61 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <link rel="stylesheet" href="styles/reset.css">
+        <link rel="stylesheet" href="styles/books.css">
         <title>Document</title>
     </head>
     <body>
-        <header>
-        </header>
+        <header><h1>The Book Store</h1></header>
 
         <main>
-                    <%bookItems.forEach(item => { %>
+            <div>
+                <h4>Searched for: <%=bookItems[bookItems.length-1]%></h4>
+            </div>
+            <div id=books-container>
+                    <%bookItems.forEach((item) => { %>
                         <section>
                             <img src="<%=item.image%>" alt="">
-                            <h2><%=item.title%></h2>
-                            <h3><%=item.author%></h3>
-                            <p><%=item.description%></p>
+                            <div id="titleAuthor">
+                                <h2><%=item.title%></h2>
+                                <h3>by: <%=item.author%></h3>
+                                <div class="pop">
+                                        <button class='desc' id="descBtn" onclick="myFunc('desc')">More</button>
+                                        <input type="submit" value="Add" id="addBtn">
+                                </div>
+
+                                <div class="popup-container" id= "popup" onclick="closePop()">
+                                        <div class="popup">
+                                            <h2><%=item.title%></h2>
+                                            <h3>by: <%=item.author%></h3>
+                                            <p><span>Description: </span><%=item.description%></p>
+                                        </div>
+                                        </div>
+                                </div>
+
+                                <script>
+                                    console.log('getting here');
+                                    var login = document.getElementById("popup")
+                                    var myFunc = function(type){
+                                        console.log('open');
+                                        login.classList.add("isvisable");
+                                    }
+                                    
+                                
+                                
+                                    var closePop = function(){
+                                    if(event.currentTarget === event.target){
+                                        
+                                        login.classList.remove("isvisable")
+                                    }
+                                
+                                    }
+                                </script>
+                                    
+                            <!-- <p><%=item.description%></p> -->
                         </section>
-                    <%})%>            
+                    <%})%>     
+            </div>      
         </main>
 
         <footer>
