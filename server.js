@@ -101,7 +101,7 @@ function getBooks(req, res){
 
 function retrieveSQL(req, res){
   const SQL = `SELECT * FROM books;`;
-  const savedBooks = [];
+  // const savedBooks = [];
   client.query(SQL)
     .then(results =>{
       let resultsArr = results.rows;
