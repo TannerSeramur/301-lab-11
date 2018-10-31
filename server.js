@@ -5,6 +5,8 @@ const express = require('express');
 const cors = require('cors');
 const superagent = require('superagent');
 const pg = require('pg');
+const ejs = require('ejs');
+
 
 require('dotenv').config();
 
@@ -33,54 +35,64 @@ app.get('/',(req, res) =>{
 
 app.post('/searches', getBooks);
 
-app.get('/error', handleError );
+app.post('/error', handleError );
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 
 
 // error handler
-function handleError (err,res) {
-  console.error(err);
+function handleError (err) {
+  // console.error('********',err, '#########');
+  ejs.render('./pages/error.ejs');
 
-  app.get('/error', () =>{
-    res.render('./pages/error.ejs');
-  });
+  // app.post('/error',(req, res) =>{
+  //   res.render('./pages/error.ejs');
+  // });
+
+  // app.get('/error', () =>{
+  //   res.render('./pages/error.ejs');
+  // });
 }
+
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 
 
 // books constructer function
-function Book(data){
+function Book(data ){
+  // console.log(data);
+  this
   let noData = 'No Data Found';
   this.title = (data.title ? data.title : noData );
-  this.author = (data.authors ? data.authors[0] : noData ); // only grabbing the first author 
+  this.author = (data.authors ? data.authors[0] : noData ); // only grabbing the first author
   this.description = (data.description ? data.description : noData );
   this.image = (data.imageLinks.thumbnail ? data.imageLinks.thumbnail : noData );
+  // this.searched
 }
 
 function getBooks(req, res){
-  // console.log('This is our req: ', req.body);
+  const searchedWord = (req.body.title ? req.body.title : req.body.author);
+  const searchAuthor = (req.body.author ? `?q=inauthor+${req.body.author}` : null )
+  const search = (req.body.title ? `?q=intitle+${req.body.title}` : searchAuthor);
 
-  // if(req.body.title){
-  //   const search = `intitle+${req.body.title}`
-  // }
+  // console.log('this is our req.body.author', search);
 
-  const search = (req.body.title ? `intitle+${req.body.title}` : `inauthor+${req.body.author}`)
-
-  console.log('this is our req.body.author', search);
-
-  const URL = `https://www.googleapis.com/books/v1/volumes?q=${search}`;
+  const URL = `https://www.googleapis.com/books/v1/volumes${search}`;
   return superagent.get(URL)
     .then(results => {
       const bookArr = [];
       results.body.items.forEach(book => {
         bookArr.push(new Book(book.volumeInfo));
+        // console.log('!!!!!!!!!!!', book);
       });
+      bookArr.push(searchedWord);
+      console.log(bookArr, '$$$$$$$$$$$')
       res.render('./pages/searches/show.ejs', {bookItems:bookArr});
+      // res.render('./pages/searches/show.ejs', {searchedWord:searchedWord});
+
     })
-    .catch(error => handleError(error));
+    .catch(error => (handleError(error)));
 }
 
 
