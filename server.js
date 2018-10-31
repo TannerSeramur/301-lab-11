@@ -108,8 +108,8 @@ function retrieveSQL(req, res){
       console.log(resultsArr, 'right herr');
       res.render('./pages/index',{savedItems: resultsArr});
     })
-  console.log(savedBooks, 'saved books here');
-
+    .catch(error => (handleError(error)));
+  // console.log(savedBooks, 'saved books here');
 
 }
 
