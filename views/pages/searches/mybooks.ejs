@@ -1,0 +1,17 @@
+<link rel="stylesheet" href="styles/books.css">
+<!-- show saved books -->
+<h5>My Books Count: <%=savedItems.length%> </h5>
+<div id="books-db-container">
+        <%savedItems.forEach((item) => { %>
+            <section>
+                <img src="<%=item.image_url%>" alt="">
+                <div id="titleAuthor">
+                    <h2><%=item.title%></h2>
+                    <h3>by: <%=item.author%></h3>
+                    <form action="/books/:id" method="POST">
+                        <input type="submit" value="More" id="moreBtn">
+                        <input type="submit" value="Add!" id="addBtn">
+                    </form>
+            </section>
+        <%});%>
+</div>

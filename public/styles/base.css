@@ -38,13 +38,13 @@ input{
     /* background-color:red; */
     width: 40%;
     background-color:white;
-    padding: 10px 30px;
+    padding: 10px 40px;
     border: none;
     border-radius: 10px;
     text-align: center;
     font-family: 'Roboto', sans-serif;
     font-size: 1em;
-
+    text-align: center;
 }
 #title{
     /* background-color:blue; */
@@ -69,4 +69,10 @@ input{
     font-family: 'Roboto', sans-serif;
     background-color: #e06c77;
     color: #f1f1f1;
+}
+
+#books-db-container{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
 }
