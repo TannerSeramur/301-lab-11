@@ -36,15 +36,15 @@ h2{
 }
 input{
     /* background-color:red; */
-    width: 40%;
     background-color:white;
     padding: 10px 40px;
+    /* padding: 20px; */
     border: none;
     border-radius: 10px;
     text-align: center;
     font-family: 'Roboto', sans-serif;
     font-size: 1em;
-    text-align: center;
+    /* text-align: center; */
 }
 #title{
     /* background-color:blue; */
@@ -64,11 +64,11 @@ input{
     margin-top: 10px;
 }
 #searchBtn{
-    width: 25%;
     margin-top: 10px;
     font-family: 'Roboto', sans-serif;
     background-color: #e06c77;
     color: #f1f1f1;
+    /* text-align: center; */
 }
 
 #books-db-container{

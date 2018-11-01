@@ -4,14 +4,24 @@
 <div id="books-db-container">
         <%savedItems.forEach((item) => { %>
             <section>
-                <img src="<%=item.image_url%>" alt="">
-                <div id="titleAuthor">
-                    <h2><%=item.title%></h2>
-                    <h3>by: <%=item.author%></h3>
-                    <form action="/books/:id" method="POST">
-                        <input type="submit" value="More" id="moreBtn">
-                        <input type="submit" value="Add!" id="addBtn">
-                    </form>
+                <form action="/book/<%=item.id%>" method="POST">
+                    <img src="<%=item.image_url%>" alt="">
+                    <div id="titleAuthor">
+                        <h2><%=item.title%></h2>
+                        <h3>by: <%=item.author%></h3>
+                    </div>
+                    <input type="hidden" name='title' value='<%= item.title %>'>
+                    <input type="hidden" name='author' value='<%= item.author %>'>
+                    <input type="hidden" name='isbn' value='<%= item.isbn %>'>
+                    <input type="hidden" name='image_url' value='<%= item.image_url %>'>
+                    <input type="hidden" name='bookdescription' value='<%= item.bookdescription %>'>
+                    <input type="hidden" name='bookshelf' value='<%= item.bookshelf %>'>
+
+                    <input type="submit" name="_method" value="More" id="addBtn">
+
+                </form>
             </section>
         <%});%>
 </div>
+
+
