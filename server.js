@@ -13,12 +13,17 @@ var methodOverride = require('method-override');
 const PORT = process.env.PORT || 3000;
 const app = express();
 require('dotenv').config();
+app.set('view engine', 'ejs');
+
+app.use(cors());
+app.use(express.static('./public'))
+app.use(express.urlencoded({extended:true}))
 
 // middleware
-app.set('view engine', 'ejs');
+
 app.use(methodOverride((req, res) => {
   if(typeof(req.body) === `object` && '_method' in req.body){
-    console.log(req.body, 'HERE');
+    // console.log(req.body, 'HERE');
 
     let method = req.body._method;
     delete req.body._method;
@@ -26,9 +31,6 @@ app.use(methodOverride((req, res) => {
   }
 }));
 
-app.use(cors());
-app.use(express.static('./public'))
-app.use(express.urlencoded({extended:true}))
 
 
 const client = new pg.Client(process.env.DATABASE_URL);
@@ -47,7 +49,7 @@ app.post('/error', handleError );
 
 app.post('/book/:id', getBookDetails);
 
-app.delete('/delete', deleteBook);
+app.delete('/deleteBook/:id', deleteBook);
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////
@@ -118,13 +120,16 @@ function retrieveSQL(req, res){
   // console.log(savedBooks, 'saved books here');
 }
 function getBookDetails(req,res){
-  console.log(req.body, 'req.body HERE');
+  // console.log(req.body, 'req.body HERE');
   res.render('./pages/soloBook', {singleBook: req.body} );
 }
 
 function deleteBook(req, res){
   console.log(req.body, 'workin')
-
+  const SQL = `DELETE FROM books WHERE id =${req.body.id}`;
+  client.query(SQL);
+  res.redirect('/');
 }
+
 
 

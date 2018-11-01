@@ -12,19 +12,18 @@
 
         <main>
                 <section>
-                        <form action="" method="POST">
+                        <form action="/deleteBook/<%=singleBook.id %>" method="POST">
                             <img src="<%= singleBook.image_url %>" alt="">
                             <div id="bookInfo">
                                 <h2><%= singleBook.title %></h2>
                                 <h3>by: <%= singleBook.author %></h3>
                                 <p>ISBN: <%= singleBook.isbn %></p>
                                 <p>Description: <%= singleBook.bookdescription %></p>
-
-
                             </div>
-        
-                            <input type="submit" name="_method" value="More" id="addBtn">
-                            <button></button>
+
+                            <input type="hidden" name='id' value='<%= singleBook.id %>'>
+
+                            <input type="submit" name="_method" value="delete" id="addBtn">
         
                         </form>
                     </section>
