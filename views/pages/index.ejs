@@ -5,7 +5,7 @@
     <meta name="The Book Store" content="book_app">
     <link rel="stylesheet" href="styles/reset.css">
     <link rel="stylesheet" href="styles/base.css">
-    <link rel="stylesheet" href="styles/books.css">
+    <!-- <link rel="stylesheet" href="styles/books.css"> -->
     <title>Book app</title>
 </head>
 <body>
@@ -27,22 +27,8 @@
                 </form>
             </div>
 
-            <!-- <link rel="stylesheet" href="styles/books.css"> -->
 
-
-        <!-- show saved books -->
-        <div id="books-db-container">
-            <h5>My Books Count: <%=savedItems.length%> </h5>
-                <%savedItems.forEach((item) => { %>
-                    <section>
-                        <img src="<%=item.image_url%>" alt="">
-                        <div id="titleAuthor">
-                            <h2><%=item.title%></h2>
-                            <h3>by: <%=item.author%></h3>
-                    </section>
-                <%});%>
-        </div>
-        
+    <%- include('./searches/mybooks.ejs') %>        
     </main>
     <footer></footer>
 </body>

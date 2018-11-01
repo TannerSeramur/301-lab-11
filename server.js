@@ -35,21 +35,14 @@ app.post('/searches', getBooks);
 
 app.post('/error', handleError );
 
+// app.post('/books/:id', getBookDetails);
+
 ////////////////////////////////////////////////////////////////////////////////////////////
 
 
 // error handler
 function handleError (err) {
   console.error('********',err, '#########');
-  // ejs.render('./pages/error.ejs');
-
-  // app.post('/error',(req, res) =>{
-  //   res.render('./pages/error.ejs');
-  // });
-
-  // app.get('/error', () =>{
-  //   res.render('./pages/error.ejs');
-  // });
 }
 
 
@@ -105,11 +98,13 @@ function retrieveSQL(req, res){
   client.query(SQL)
     .then(results =>{
       let resultsArr = results.rows;
-      console.log(resultsArr, 'right herr');
+      // console.log(resultsArr, 'right herr');
       res.render('./pages/index',{savedItems: resultsArr});
     })
     .catch(error => (handleError(error)));
   // console.log(savedBooks, 'saved books here');
-
 }
+// function getBookDetails(req,res){
+//   console.log('startt',req.body, 'req.body here %%%');
+// }
 
