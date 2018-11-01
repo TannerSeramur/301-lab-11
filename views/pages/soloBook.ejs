@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="styles/reset.css">
+        <link rel="stylesheet" href="styles/books.css">
+        <title>Document</title>
+    </head>
+    <body>
+        <header><h1>The Book Store</h1></header>
+
+        <main>
+                <section>
+                        <form action="/deleteBook/<%=singleBook.id %>" method="POST">
+                            <img src="<%= singleBook.image_url %>" alt="">
+                            <div id="bookInfo">
+                                <h2><%= singleBook.title %></h2>
+                                <h3>by: <%= singleBook.author %></h3>
+                                <p>ISBN: <%= singleBook.isbn %></p>
+                                <p>Description: <%= singleBook.bookdescription %></p>
+                            </div>
+
+                            <input type="hidden" name='id' value='<%= singleBook.id %>'>
+
+                            <input type="submit" name="_method" value="delete" id="addBtn">
+        
+                        </form>
+                    </section>
+        </main>
+
+        <footer>
+        </footer>
+        
+    </body>
+</html>

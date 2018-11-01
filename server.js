@@ -1,41 +1,56 @@
 'use strict'
 
-// setup
+// Application Dependencies
 const express = require('express');
 const cors = require('cors');
 const superagent = require('superagent');
 const pg = require('pg');
+var methodOverride = require('method-override');
 // const ejs = require('ejs');
 
 
-require('dotenv').config();
-
+// app setup
+const PORT = process.env.PORT || 3000;
 const app = express();
+require('dotenv').config();
 app.set('view engine', 'ejs');
 
-const PORT = process.env.PORT || 3000;
+app.use(cors());
+app.use(express.static('./public'))
+app.use(express.urlencoded({extended:true}))
+
+// middleware
+
+app.use(methodOverride((req, res) => {
+  if(typeof(req.body) === `object` && '_method' in req.body){
+    // console.log(req.body, 'HERE');
+
+    let method = req.body._method;
+    delete req.body._method;
+    return method;
+  }
+}));
+
+
 
 const client = new pg.Client(process.env.DATABASE_URL);
 client.connect();
 client.on('err', err=>console.log(err));
 
-app.use(cors());
-
 
 app.listen(PORT, ()=>{console.log(`app is running on ${PORT}`)});
 
-app.use(express.static('./public'))
-app.use(express.urlencoded({extended:true}))
-
-
-
+// API Routes
 app.get('/',retrieveSQL);
 
 app.post('/searches', getBooks);
 
 app.post('/error', handleError );
 
-// app.post('/books/:id', getBookDetails);
+app.post('/book/:id', getBookDetails);
+
+app.delete('/deleteBook/:id', deleteBook);
+
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -104,7 +119,17 @@ function retrieveSQL(req, res){
     .catch(error => (handleError(error)));
   // console.log(savedBooks, 'saved books here');
 }
-// function getBookDetails(req,res){
-//   console.log('startt',req.body, 'req.body here %%%');
-// }
+function getBookDetails(req,res){
+  // console.log(req.body, 'req.body HERE');
+  res.render('./pages/soloBook', {singleBook: req.body} );
+}
+
+function deleteBook(req, res){
+  console.log(req.body, 'workin')
+  const SQL = `DELETE FROM books WHERE id =${req.body.id}`;
+  client.query(SQL);
+  res.redirect('/');
+}
+
+
 
