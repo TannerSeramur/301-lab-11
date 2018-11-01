@@ -45,6 +45,8 @@ app.get('/',retrieveSQL);
 
 app.post('/searches', getBooks);
 
+app.post('/addBook', save);
+
 app.post('/error', handleError );
 
 app.post('/book/:id', getBookDetails);
@@ -73,19 +75,18 @@ function Book(data){
   this.image = (data.imageLinks.thumbnail ? data.imageLinks.thumbnail : 'No Data Found');
   this.description = (data.description ? data.description : 'No Data Found' );
 }
-Book.prototype.save = function(){
+
+function save(req, res){
   let SQL = `
-  INSERT INTO books 
+  INSERT INTO books
   (title,author,isbn,image_url,bookDescription)
   VALUES($1,$2,$3,$4,$5)`;
-
-  let values = Object.values(this);
-  client.query(SQL, values);
+  let value = Object.values(req.body);
+  client.query(SQL,value);
+  res.redirect('/');
 }
 
 function getBooks(req, res){
-  // console.log(res, 'res here )()()()()()' )
-  // const searchedWord = (req.body.title ? req.body.title : req.body.author);
   const searchAuthor = (req.body.author ? `?q=inauthor+${req.body.author}` : null )
   const search = (req.body.title ? `?q=intitle+${req.body.title}` : searchAuthor);
 
@@ -96,13 +97,9 @@ function getBooks(req, res){
       results.body.items.forEach(book => {
         let newBook = new Book(book.volumeInfo);
         bookArr.push(newBook);
-        // console.log(newBook, 'newbook*********');
-        newBook.save();
-
 
       });
-      // bookArr.push(searchedWord);
-      res.render('./pages/searches/new.ejs', {bookItems:bookArr});
+      res.render('./pages/searches/bookSearch.ejs', {bookItems:bookArr});
     })
     .catch(error => (handleError(error)));
 }
@@ -113,14 +110,11 @@ function retrieveSQL(req, res){
   client.query(SQL)
     .then(results =>{
       let resultsArr = results.rows;
-      // console.log(resultsArr, 'right herr');
       res.render('./pages/index',{savedItems: resultsArr});
     })
     .catch(error => (handleError(error)));
-  // console.log(savedBooks, 'saved books here');
 }
 function getBookDetails(req,res){
-  // console.log(req.body, 'req.body HERE');
   res.render('./pages/soloBook', {singleBook: req.body} );
 }
 
