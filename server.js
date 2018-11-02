@@ -48,7 +48,7 @@ app.post('/searches', getBooks);
 
 app.post('/addBook', save);
 
-app.post('/error', handleError );
+app.get('/error', renderError);
 
 app.post('/book/:id', getBookDetails);
 
@@ -59,10 +59,15 @@ app.delete('/deleteBook/:id', deleteBook);
 
 
 // error handler
-function handleError (err) {
+function handleError (err, res) {
   console.error('********',err, '#########');
+  res.redirect('/error');
 }
 
+// render error page
+function renderError(req,res){
+  res.render('Sorry, something went wrong.')
+}
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////
@@ -104,7 +109,7 @@ function getBooks(req, res){
       });
       res.render('./pages/searches/bookSearch.ejs', {bookItems:bookArr});
     })
-    .catch(error => (handleError(error)));
+    .catch(error => (handleError(error, res)));
 }
 
 function retrieveSQL(req, res){
@@ -115,7 +120,7 @@ function retrieveSQL(req, res){
       let resultsArr = results.rows;
       res.render('./pages/index',{savedItems: resultsArr});
     })
-    .catch(error => (handleError(error)));
+    .catch(error => (handleError(error, res)));
 }
 function getBookDetails(req,res){
   res.render('./pages/soloBook', {singleBook: req.body} );
