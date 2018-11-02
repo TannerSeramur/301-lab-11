@@ -9,7 +9,8 @@
                     <div id="titleAuthor">
                         <h6><%=item.title%></h6>
                         <h3>by: <%=item.author%></h3>
-                        <input type="submit" name="method" value="More" id="addBtn">
+                        <input type="submit" name="method" value="MORE" id="addBtn">
+                        <input type ="button" class='desc' id="descBtn" onclick="myFunc('desc')" value= "EDIT">
                     </div>
                     <input type="hidden" name='id' value='<%= item.id %>'>
                     <input type="hidden" name='title' value='<%= item.title %>'>
@@ -18,11 +19,37 @@
                     <input type="hidden" name='image_url' value='<%= item.image_url %>'>
                     <input type="hidden" name='bookdescription' value='<%= item.bookdescription %>'>
                     <input type="hidden" name='bookshelf' value='<%= item.bookshelf %>'>
-
-
                 </form>
+                <div class="popup-container" id= "popup" onclick="closePop()">
+                    <div class="popup">
+                        <form id='edit' action="">
+                            <input type="text" placeholder="Add To Bookshelf">
+                            <textarea id="commentTextBox" name="" id="" cols="30" rows="10"></textarea>
+                            <input type="submit" value="Update">
+                        </form>
+
+                    </div>
+                </div>
+                </div>
             </section>
         <%});%>
+
+        <script>
+                console.log('getting here');
+                var login = document.getElementById("popup")
+                var myFunc = function(type){
+                    console.log('open');
+                    login.classList.add("isvisable");
+                }
+
+                var closePop = ()=>{
+                if(event.currentTarget === event.target){
+                    
+                    login.classList.remove("isvisable")
+                }
+            
+                }
+            </script>
 </div>
 
 
