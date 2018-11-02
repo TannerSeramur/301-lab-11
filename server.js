@@ -66,7 +66,7 @@ function handleError (err, res) {
 
 // render error page
 function renderError(req,res){
-  res.render('Sorry, something went wrong.')
+  res.render('./pages/error');
 }
 
 
