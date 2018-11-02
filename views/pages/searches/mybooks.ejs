@@ -31,26 +31,27 @@
 
                     </div>
                 </div>
-                </div>
+                
             </section>
         <%});%>
 
-        <script>
-                console.log('getting here');
-                var login = document.getElementById("popup")
-                var myFunc = function(type){
-                    console.log('open');
-                    login.classList.add("isvisable");
-                }
-
-                var closePop = ()=>{
-                if(event.currentTarget === event.target){
-                    
-                    login.classList.remove("isvisable")
-                }
-            
-                }
-            </script>
 </div>
+
+<script>
+        console.log('getting here');
+        var login = document.getElementById("popup")
+        var myFunc = function(type){
+            console.log('open');
+            login.classList.add("isvisable");
+        }
+
+        var closePop = ()=>{
+        if(event.currentTarget === event.target){
+            
+            login.classList.remove("isvisable")
+        }
+    
+        }
+    </script>
 
 

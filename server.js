@@ -24,8 +24,6 @@ app.use(express.urlencoded({extended:true}))
 
 app.use(methodOverride((req, res) => {
   if(typeof(req.body) === `object` && '_method' in req.body){
-    // console.log(req.body, 'HERE');
-
     let method = req.body._method;
     delete req.body._method;
     return method;
