@@ -1,3 +1,6 @@
+
+
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -23,7 +26,6 @@
                                 <h3>by: <%=item.author%></h3>
                                 <div class="pop">
                                         <input type ="button" class='desc' id="descBtn" onclick="myFunc('desc')" value= "description">
-
                                         <input type="hidden" name='title' value='<%= item.title %>'>
                                         <input type="hidden" name='author' value='<%= item.author %>'>
                                         <input type="hidden" name='isbn' value='<%= item.isbn %>'>
@@ -34,8 +36,6 @@
                                         <input type="submit" name="_method" value="Add" id="addBtn">
                                 </form>
                                 </div>
-
-
                                 <!-- <%bookItems.forEach((item) => { %> -->
                                 <div class="popup-container" id= "popup" onclick="closePop()">
                                         <div class="popup">
@@ -47,7 +47,6 @@
                                         <!-- <%})%> -->
                                         </div>
                                 </div>
-
                                 <script>
                                     console.log('getting here');
                                     var login = document.getElementById("popup")
@@ -55,7 +54,6 @@
                                         console.log('open');
                                         login.classList.add("isvisable");
                                     }
-
                                     var closePop = ()=>{
                                     if(event.currentTarget === event.target){
                                         
