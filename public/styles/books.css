@@ -187,3 +187,8 @@ h2{
     text-align: center;
 
 }
+#edit{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
