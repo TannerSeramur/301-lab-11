@@ -1,3 +1,4 @@
+
 'use strict'
 
 // Application Dependencies
@@ -69,11 +70,14 @@ function handleError (err) {
 
 // books constructer function
 function Book(data){
-  this.title = (data.title ? data.title : 'No Data Found' );
-  this.author = (data.authors ? data.authors[0] : 'No Data Found' ); // only grabbing the first author
-  this.isbn =(data.industryIdentifiers[0].identifier ? data.industryIdentifiers[0].identifier : 'No Data Found');
-  this.image = (data.imageLinks.thumbnail ? data.imageLinks.thumbnail : 'No Data Found');
-  this.description = (data.description ? data.description : 'No Data Found' );
+  // console.log('@@@@@@@@@@@@',data)
+  this.title = data.title ? data.title : 'No Data Found' ;
+  this.author = data.authors ? data.authors[0] : 'No Data Found' ; // only grabbing the first author
+  this.isbn =data.industryIdentifiers[0].identifier ? data.industryIdentifiers[0].identifier : 'No Data Found';
+  this.image = data.imageLinks.thumbnail ? data.imageLinks.thumbnail : 'https://via.placeholder.com/';
+  // console.log('title--->',data.title);
+  // console.log('title--->',data.title,'dataLinks--->',data.imageLinks);
+  this.description = data.description ? data.description : 'No Data Found' ;
 }
 
 function save(req, res){
@@ -87,17 +91,16 @@ function save(req, res){
 }
 
 function getBooks(req, res){
-  const searchAuthor = (req.body.author ? `?q=inauthor+${req.body.author}` : null )
-  const search = (req.body.title ? `?q=intitle+${req.body.title}` : searchAuthor);
-
+  // const searchAuthor = (req.body.author ? `?q=inauthor+${req.body.author}` : null )
+  const search = (req.body.title ? `?q=title+${req.body.title}` : `?q=author+${req.body.author}`);
   const URL = `https://www.googleapis.com/books/v1/volumes${search}`;
   return superagent.get(URL)
     .then(results => {
       const bookArr = [];
       results.body.items.forEach(book => {
+        // console.log('log results.body.items-->',results.body.items)
         let newBook = new Book(book.volumeInfo);
         bookArr.push(newBook);
-
       });
       res.render('./pages/searches/bookSearch.ejs', {bookItems:bookArr});
     })
@@ -119,7 +122,7 @@ function getBookDetails(req,res){
 }
 
 function deleteBook(req, res){
-  console.log(req.body, 'workin')
+  // console.log(req.body, 'workin')
   const SQL = `DELETE FROM books WHERE id =${req.body.id}`;
   client.query(SQL);
   res.redirect('/');
