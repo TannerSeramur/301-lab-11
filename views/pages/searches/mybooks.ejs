@@ -22,10 +22,11 @@
                 </form>
                 <div class="popup-container" id= "popup" onclick="closePop()">
                     <div class="popup">
-                        <form id='edit' action="">
+                        <form id='edit' action="/" method="POST">
                             <input type="text" placeholder="Add To Bookshelf">
                             <textarea id="commentTextBox" name="" id="" cols="30" rows="10"></textarea>
                             <input type="submit" value="Update">
+                            <input type="hidden" name="_method" value="PUT" id="putForm">
                         </form>
 
                     </div>

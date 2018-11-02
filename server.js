@@ -54,6 +54,8 @@ app.post('/book/:id', getBookDetails);
 
 app.delete('/deleteBook/:id', deleteBook);
 
+// app.put('updateDetails/book/:id', updateBook);
+
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -136,4 +138,9 @@ function deleteBook(req, res){
 }
 
 
+////////////////////////////////////////////////////////////////////////////////////////////
 
+// function updateBook(req, res){
+//   let updateValues = req.body;
+//   console.log('these are our update values', updateValues);
+// }
