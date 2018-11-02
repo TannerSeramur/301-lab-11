@@ -79,9 +79,7 @@ function Book(data){
   this.title = data.title ? data.title : 'No Data Found' ;
   this.author = data.authors ? data.authors[0] : 'No Data Found' ; // only grabbing the first author
   this.isbn =data.industryIdentifiers[0].identifier ? data.industryIdentifiers[0].identifier : 'No Data Found';
-  this.image = data.imageLinks.thumbnail ? data.imageLinks.thumbnail : 'https://via.placeholder.com/';
-  // console.log('title--->',data.title);
-  // console.log('title--->',data.title,'dataLinks--->',data.imageLinks);
+  this.image = data.imageLinks ? data.imageLinks.thumbnail : 'http://chittagongit.com//images/flat-book-icon/flat-book-icon-8.jpg';
   this.description = data.description ? data.description : 'No Data Found' ;
 }
 
@@ -96,9 +94,13 @@ function save(req, res){
 }
 
 function getBooks(req, res){
+  const userSearch = req.body.title ? req.body.title : req.body.author;
   // const searchAuthor = (req.body.author ? `?q=inauthor+${req.body.author}` : null )
   const search = (req.body.title ? `?q=title+${req.body.title}` : `?q=author+${req.body.author}`);
   const URL = `https://www.googleapis.com/books/v1/volumes${search}`;
+  // let encodeURL= encodeURI(URL);
+
+
   return superagent.get(URL)
     .then(results => {
       const bookArr = [];
@@ -107,7 +109,7 @@ function getBooks(req, res){
         let newBook = new Book(book.volumeInfo);
         bookArr.push(newBook);
       });
-      res.render('./pages/searches/bookSearch.ejs', {bookItems:bookArr});
+      res.render('./pages/searches/bookSearch.ejs', {bookItems:bookArr, searchAuthor: userSearch});
     })
     .catch(error => (handleError(error, res)));
 }

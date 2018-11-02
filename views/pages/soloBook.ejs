@@ -4,28 +4,33 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="styles/reset.css">
-        <link rel="stylesheet" href="styles/books.css">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css" integrity="sha384-/rXc/GQVaYpyDdyxK+ecHPVYJSN9bmVFBvjA/9eOB+pb3F2w2N6fc5qB9Ew5yIns" crossorigin="anonymous">
+        <link rel="stylesheet" href="../styles/solo-book.css">
         <title>The Book Store</title>
     </head>
     <body>
-        <header><h1>The Book Store</h1></header>
+        <header>
+            <div id='logo'><a href="../"><i class="fas fa-book-open fa-2x"></i></a></div>
+        </header>
 
         <main>
                 <section>
-                        <form action="/deleteBook/<%=singleBook.id %>" method="POST">
+                        <!-- <form action="/deleteBook/<%=singleBook.id %>" method="POST"> -->
                             <img src="<%= singleBook.image_url %>" alt="">
                             <div id="bookInfo">
                                 <h2><%= singleBook.title %></h2>
                                 <h3>by: <%= singleBook.author %></h3>
                                 <p>ISBN: <%= singleBook.isbn %></p>
                                 <p>Description: <%= singleBook.bookdescription %></p>
+                                <%- include('./comment-box.ejs') %>
+                                <form action="/deleteBook/<%=singleBook.id %>" method="POST">
+                                    <input type="hidden" name='id' value='<%= singleBook.id %>'>
+                                    <input type="submit" name="_method" value="Delete" id="deleteBtn">
+                                </form>
                             </div>
 
-                            <input type="hidden" name='id' value='<%= singleBook.id %>'>
-
-                            <input type="submit" name="_method" value="delete" id="addBtn">
         
-                        </form>
+                        <!-- </form> -->
                     </section>
         </main>
 
