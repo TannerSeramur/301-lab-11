@@ -7,8 +7,9 @@
                 <form action="/book/<%=item.id%>" method="POST">
                     <img src="<%=item.image_url%>" alt="">
                     <div id="titleAuthor">
-                        <h2><%=item.title%></h2>
+                        <h6><%=item.title%></h6>
                         <h3>by: <%=item.author%></h3>
+                        <input type="submit" name="method" value="More" id="addBtn">
                     </div>
                     <input type="hidden" name='id' value='<%= item.id %>'>
                     <input type="hidden" name='title' value='<%= item.title %>'>
@@ -18,7 +19,6 @@
                     <input type="hidden" name='bookdescription' value='<%= item.bookdescription %>'>
                     <input type="hidden" name='bookshelf' value='<%= item.bookshelf %>'>
 
-                    <input type="submit" name="method" value="More" id="addBtn">
 
                 </form>
             </section>

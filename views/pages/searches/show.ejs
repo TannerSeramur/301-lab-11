@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="styles/reset.css">
         <link rel="stylesheet" href="styles/books.css">
-        <title>Document</title>
+        <title>Searched Books</title>
     </head>
     <body>
         <header><h1>The Book Store</h1></header>
@@ -15,16 +15,29 @@
                 <!-- <h4>Searched for: <%=bookItems[bookItems.length-1]%></h4> -->
             </div>
             <div id=books-container>
-                    <%bookItems.forEach((item) => { %>
+                    <%bookItems.forEach((item, idx) => { %>
                         <section>
-                            <img src="<%=item.image_url%>" alt="">
-                            <div id="titleAuthor">
-                                <h2><%=item.title%></h2>
-                                <h3>by: <%=item.author%></h3>
-                                <div class="pop">
-                                        <button class='desc' id="descBtn" onclick="myFunc('desc')">More</button>
-                                        <input type="submit" value="Add" id="addBtn">
-                                </div>
+                                <div class="here"></div>
+                            <form action="/addBook/<%=idx%>" method="POST">
+                                <img src="<%=item.image_url%>" alt="">
+                                <div class="here"></div>
+                                <div id="titleAuthor">
+                                    <h2><%=item.title%></h2>
+                                    <h3>by: <%=item.author%></h3>
+                                    <!-- <div class="pop"> -->
+
+                                    <!-- <input type="hidden" name='id' value='<%= item.id %>'> -->
+                                    <input type="hidden" name='title' value='<%= item.title %>'>
+                                    <input type="hidden" name='author' value='<%= item.author %>'>
+                                    <input type="hidden" name='isbn' value='<%= item.isbn %>'>
+                                    <input type="hidden" name='image_url' value='<%= item.image_url %>'>
+                                    <input type="hidden" name='bookdescription' value='<%= item.bookdescription %>'>
+                                    <input type="hidden" name='bookshelf' value='<%= item.bookshelf %>'>
+
+                                    <!-- <button class='desc' id="descBtn" onclick="myFunc('desc')">More</button> -->
+                                    <input type="submit" name="_method" value="Add" id="addBtn">
+                                    <!-- </div> -->
+                            </form>
                                 <!-- <%bookItems.forEach((item) => { %> -->
                                 <div class="popup-container" id= "popup" onclick="closePop()">
                                         <div class="popup">
@@ -55,8 +68,6 @@
                                 
                                     }
                                 </script>
-                                    
-                            <!-- <p><%=item.description%></p> -->
                         </section>
                     <%});%>     
             </div>      
